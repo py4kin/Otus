@@ -1,5 +1,10 @@
 <a id="contents"></a>
 # Otus
-<a href="https://github.com/py4kin/Otus/tree/Otus/README.md#Домашка №1">Домашка №1</a>
 
+<a href="">Домашка №1</a>
+
+## Домашка №1
+1. Схема
+2. Док
+3.
 [Оглавление](#contents)
