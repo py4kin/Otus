@@ -116,7 +116,6 @@ CREATE ROLE py4kin WITH<br>
 >GRANT new_role TO py4kin;<br>
 GRANT pg_monitor TO py4kin WITH ADMIN OPTION<br>
 
-![Схема](db_role_tableplace.png)
 
 4. Схема данных - "for_otus"
 
@@ -124,7 +123,6 @@ GRANT pg_monitor TO py4kin WITH ADMIN OPTION<br>
 CREATE SCHEMA for_otus<br>
     AUTHORIZATION py4kin;
 
-![Схема](schemas_tables.png)
 
 5. Таблицы из домашнего задания №1
 
@@ -209,6 +207,10 @@ CREATE TABLE for_otus.provider<br>
 TABLESPACE for_otus;<br>
 ALTER TABLE for_otus.provider<br>
     OWNER to py4kin;<br>
+
+![Схема](db_role_tableplace.png)
+
+![Схема](schemas_tables.png)
 
 ![Схема](tables.png)
 
