@@ -79,17 +79,136 @@ P.s. Кодировку не менял.
 [Оглавление](#contents)
 <a id="7">
 ## Домашнее задание №7 (DDL: создание, изменение и удаление объектов в PostgreSQL)
-1. Создана БД - "Otus"
+1.	Создана БД - "Otus"
+
+>DROP DATABASE otus;<br>
+CREATE DATABASE otus<br>
+    WITH <br>
+    OWNER = py4kin<br>
+    ENCODING = 'UTF8'<br>
+    LC_COLLATE = 'Russian_Russia.1251'<br>
+    LC_CTYPE = 'Russian_Russia.1251'<br>
+    TABLESPACE = for_otus<br>
+    CONNECTION LIMIT = -1;
+
 2. Табличное пространство - "for_otus"
-3. Роль/пользователь - "py4kin" <br>
+
+>DROP TABLESPACE for_otus;<br>
+CREATE TABLESPACE for_otus<br>
+  OWNER py4kin<br>
+  LOCATION 'C:\Program Files\PostgreSQL\12\data';<br>
+  
+>ALTER TABLESPACE for_otus<br>
+OWNER TO py4kin;<br>
+		
+3. Роль/пользователь - "py4kin"
+
+>DROP ROLE py4kin;<br>
+CREATE ROLE py4kin WITH<br>
+  LOGIN<br>
+  SUPERUSER<br>
+  INHERIT<br>
+  CREATEDB<br>
+  CREATEROLE<br>
+  REPLICATION<br>
+  ENCRYPTED PASSWORD 'md5ab55bbce6782540fbdc80f2301ef24fd';<br>
+
+>GRANT new_role TO py4kin;<br>
+GRANT pg_monitor TO py4kin WITH ADMIN OPTION<br>
 
 ![Схема](db_role_tableplace.png)
 
 4. Схема данных - "for_otus"
 
+>DROP SCHEMA for_otus ;<br>
+CREATE SCHEMA for_otus<br>
+    AUTHORIZATION py4kin;
+
 ![Схема](schemas_tables.png)
 
 5. Таблицы из домашнего задания №1
+
+>DROP TABLE for_otus.clients;<br>
+CREATE TABLE for_otus.clients<br>
+(<br>
+    "ID" integer[] NOT NULL,<br>
+    "Name" "char" NOT NULL,<br>
+    phone_number "char" NOT NULL,<br>
+    address "char" NOT NULL,<br>
+    CONSTRAINT clients_pkey PRIMARY KEY ("ID")<br>
+        USING INDEX TABLESPACE for_otus<br>
+)<br>
+TABLESPACE for_otus;<br>
+ALTER TABLE for_otus.clients<br>
+OWNER to py4kin;
+	
+>DROP TABLE for_otus.completed_work;<br>
+CREATE TABLE for_otus.completed_work<br>
+(<br>
+    id integer NOT NULL,<br>
+    id_clients integer NOT NULL,<br>
+    id_works integer NOT NULL,<br>
+    works text COLLATE pg_catalog."default" NOT NULL,<br>
+    date_works timestamp with time zone NOT NULL,<br>
+    "Type_of_equipment" "char" NOT NULL,<br>
+    price_part character(1) COLLATE pg_catalog."default" NOT NULL,<br>
+    price_works character(1) COLLATE pg_catalog."default" NOT NULL,<br>
+    total_price character(1) COLLATE pg_catalog."default" NOT NULL,<br>
+    CONSTRAINT completed_work_pkey PRIMARY KEY (id)<br>
+        USING INDEX TABLESPACE for_otus<br>
+)<br>
+TABLESPACE for_otus;<br>
+ALTER TABLE for_otus.completed_work<br>
+    OWNER to py4kin;
+	
+>DROP TABLE for_otus.contracted_works;<br>
+CREATE TABLE for_otus.contracted_works<br>
+(<br>
+    id integer NOT NULL,<br>
+    id_clients integer NOT NULL,<br>
+    insertdate timestamp with time zone NOT NULL,<br>
+    breaking text COLLATE pg_catalog."default" NOT NULL,<br>
+    "Type_of_equipment" "char" NOT NULL,<br>
+    " departure" timestamp with time zone NOT NULL,<br>
+    CONSTRAINT "Contracted_works_pkey" PRIMARY KEY (id)<br>
+        USING INDEX TABLESPACE for_otus<br>
+)<br>
+TABLESPACE for_otus;<br>
+ALTER TABLE for_otus.contracted_works<br>
+    OWNER to py4kin;
+	
+>DROP TABLE for_otus.parts;<br>
+CREATE TABLE for_otus.parts<br>
+(<br>
+    id integer NOT NULL,<br>
+    type_of_equipment "char" NOT NULL,<br>
+    id_vendor integer NOT NULL,<br>
+    manufacturer "char" NOT NULL,<br>
+    name "char" NOT NULL,<br>
+    qty integer NOT NULL,<br>
+    price_thing "char" NOT NULL,<br>
+    total_price "char" NOT NULL,<br>
+    date_supply timestamp with time zone NOT NULL,<br>
+    CONSTRAINT parts_pkey PRIMARY KEY (id)<br>
+        USING INDEX TABLESPACE for_otus<br>
+)<br>
+TABLESPACE for_otus;<br>
+ALTER TABLE for_otus.parts<br>
+    OWNER to py4kin;
+	
+>DROP TABLE for_otus.provider;<br>
+CREATE TABLE for_otus.provider<br>
+(<br>
+    id integer NOT NULL,<br>
+    name "char" NOT NULL,<br>
+    phone_number "char" NOT NULL,<br>
+    address "char" NOT NULL,<br>
+    CONSTRAINT provider_pkey PRIMARY KEY (id)<br>
+        USING INDEX TABLESPACE for_otus<br>
+)<br>
+TABLESPACE for_otus;<br>
+ALTER TABLE for_otus.provider<br>
+    OWNER to py4kin;<br>
 
 ![Схема](tables.png)
 
