@@ -208,6 +208,8 @@ TABLESPACE for_otus;<br>
 ALTER TABLE for_otus.provider<br>
     OWNER to py4kin;<br>
 
+*Скриншоты выполненой работы.*
+
 ![Схема](db_role_tableplace.png)
 
 ![Схема](schemas_tables.png)
