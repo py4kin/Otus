@@ -266,7 +266,7 @@ ALTER TABLE for_otus.provider<br>
 
 ![Схема](like_1.png)
 
-3.2 Ищу выополненую работу "поменяли" только в стиральных машинах.					
+3.2 Ищу выполненную работу "поменяли" только в стиральных машинах.					
 >select * from for_otus.completed_work where works similar to '%меня%сти%';
 				
 ![Схема](similar_to.png)
