@@ -244,7 +244,7 @@ ALTER TABLE for_otus.provider<br>
 	
 ![Схема](Update_from_1.png)
 	
-					2.2 Вставка в таблицу provider адреса из таблицы clients для ID=3.
+2.2 Вставка в таблицу provider адреса из таблицы clients для ID=3.
 	
 > UPDATE for_otus.provider<br>
 	SET address = clients.address<br>
