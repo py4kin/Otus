@@ -253,7 +253,7 @@ ALTER TABLE for_otus.provider<br>
 	
 ![Схема](Update_from_2.png)
 	
-					2.3 Вставка в таблицу provider адреса из таблицы clients.
+	2.3 Вставка в таблицу provider адреса из таблицы clients.
 >UPDATE for_otus.provider as a<br>
 	SET address = clients.address<br>
 	**from** for_otus.provider inner join for_otus.clients on provider.id=clients."ID";
@@ -266,12 +266,12 @@ ALTER TABLE for_otus.provider<br>
 
 ![Схема](like_1.png)
 
-					3.2 Ищу выополненую работу "поменяли" только в стиральных машинах.					
+3.2 Ищу выополненую работу "поменяли" только в стиральных машинах.					
 >select * from for_otus.completed_work where works similar to '%меня%сти%';
 				
 ![Схема](similar_to.png)
 
-					3.3 Ищу "покупку" без учета регистра.
+3.3 Ищу "покупку" без учета регистра.
 >select * from for_otus.completed_work where works ~* '.*куп.*'
 
 ![Схема](posix.png)
