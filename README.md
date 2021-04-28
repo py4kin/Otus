@@ -7,6 +7,8 @@
 [Домашнее задание №6 (Внутренняя архитектура СУБД PostgreSQL)](#6)
 
 [Домашнее задание №7 (DDL: создание, изменение и удаление объектов в PostgreSQL)](#7)
+
+[Домашнее задание №9 (DML: вставка, обновление, удаление, выборка данных)](#9)
 <a id="1">
 ## Домашнее задание №1 (Проектирование БД)
 ### 1. Схема <br>		
@@ -216,6 +218,94 @@ ALTER TABLE for_otus.provider<br>
 
 ![Схема](tables.png)
 
+</a>
+
+[Оглавление](#contents)
+<a id="9">
+## Домашнее задание №9 (DML: вставка, обновление, удаление, выборка данных)
+1. Напишите запрос на добавление данных с выводом информации о добавленных строках.
+
+>INSERT INTO for_otus.provider(<br>
+	id, name, phone_number, address)<br>
+	VALUES (1, 'Завод', '+751-782', 'Тула, Калужское шоссе'),<br>
+			(2, 'Петрович', '', 'с. Майский'),<br>
+			(3, 'NoName', '+929-852-87-xx', ''),<br>
+			(4, Null, Null, 'Null')<br>
+			returning id, name, phone_number, address;
+
+![Схема](Insert.png)
+
+2. Напишите запрос с обновлением данные используя UPDATE FROM.<br>
+	2.1 Вставка в таблицу provider номера телефона из таблицы clients
+>UPDATE for_otus.provider<br>
+	SET phone_number = (select phone_number **from** for_otus.clients where "ID"=3) <br>
+	where id=3<br>
+	returning id, name, phone_number, address;
+	
+![Схема](Update_from_1.png)
+	
+					2.2 Вставка в таблицу provider адреса из таблицы clients для ID=3.
+	
+> UPDATE for_otus.provider<br>
+	SET address = clients.address<br>
+	**from** for_otus.clients where clients."ID"=provider.id and ID=3<br>
+	returning id, name, 'phone_number', 'address';
+	
+![Схема](Update_from_2.png)
+	
+					2.3 Вставка в таблицу provider адреса из таблицы clients.
+>UPDATE for_otus.provider as a<br>
+	SET address = clients.address<br>
+	**from** for_otus.provider inner join for_otus.clients on provider.id=clients."ID";
+	
+![Схема](Update_from_3.png)
+
+3. Напишите запрос по своей базе с регулярным выражением, добавьте пояснение, что вы хотите найти.<br>
+	3.1 Ищу выополненую работу по холодильникам.
+>select * from for_otus.completed_work where works like '%хол%';
+
+![Схема](like_1.png)
+
+					3.2 Ищу выополненую работу "поменяли" только в стиральных машинах.					
+>select * from for_otus.completed_work where works similar to '%меня%сти%';
+				
+![Схема](similar_to.png)
+
+					3.3 Ищу "покупку" без учета регистра.
+>select * from for_otus.completed_work where works ~* '.*куп.*'
+
+![Схема](posix.png)
+
+4. Напишите запрос по своей базе с использованием LEFT JOIN и INNER JOIN, как порядок соединений в FROM влияет на результат? Почему?<br>
+	4.1. select * from for_otus.completed_work inner join for_otus.clients on completed_work.id=clients."ID" ;<br>
+	*Для **INNER JOIN** порядок соединения не играет роли. В результирующий набор попадают столбцы с одинаковыми значениями.*
+	
+![Схема](inner_join.png)
+
+4.2. select * from for_otus.clients left join for_otus.completed_work on clients."ID"=completed_work.id;<br>
+*Для **LEFT JOIN** порядок соединения игает роль. В результирующий набор попадают все столбцы "левой таблицы" и столбцы с одинаковыми значениями из "правой" таблицы.*
+
+![Схема](left_join.png)
+
+5. Напишите запрос для удаления данных с оператором DELETE используя join с другой таблицей с помощью using.
+>delete from for_otus.provider **using** for_otus.parts <br>
+where provider.id=parts.id and provider.id=3<br>
+returning *;
+
+![Схема](delete.png)
+
+
+6. Приведите пример использования утилиты COPY (по желанию)<br>
+	6.1 Копирование данных из **таблицы** в файл.
+>copy for_otus.copy_1 to 'D:\MySQL\new.copy';
+
+![Схема](copy_in_file.png)<br>
+![Схема](copy_in_file_1.png)<br><br>
+6.2 Копирование данных из **файла** в таблицу 
+>copy for_otus.copy_1 from 'D:\MySQL\1.txt';
+
+![Схема](copy_of_file.png)<br>
+![Схема](copy_of_file_1.png)<br><br>
 </a>
 
 [Оглавление](#contents)
