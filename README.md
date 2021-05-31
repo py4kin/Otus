@@ -314,20 +314,20 @@ returning *;
 <a id="11">
 ## Домашнее задание №11 (Индексы)
 1.Индекс на одно поле.<br>
-create index on for_otus.new(id);<br>
+>create index on for_otus.new(id);<br>
 explain select * from for_otus.new where id=5000;<br>
 Index Scan using new_id_idx on new  (cost=0.43..8.45 rows=1 width=50)
   Index Cond: (id = 5000) 
 
 2.Частычный индекс (на часть таблицы)<br>
-create index on for_otus.new(name) where name='Женя';<br>
+>create index on for_otus.new(name) where name='Женя';<br>
 explain select * from for_otus.new where name='Женя';<br>
 Bitmap Heap Scan on new  (cost=7958.02..63363.18 rows=384333 width=50)<br>
   Recheck Cond: (name = 'Женя'::text)<br>
   ->  Bitmap Index Scan on new_name_idx  (cost=0.00..7861.93 rows=384333 width=0)<br>
   
  2.1 На функцию:<br>
- create index on for_otus.new((name || ' ' || address));<br>
+>create index on for_otus.new((name || ' ' || address));<br>
 explain SELECT * FROM for_otus.new WHERE (name || ' ' || address) = 'Женя г. Щекино ул. Зеленая 3';<br>
 Bitmap Heap Scan on new  (cost=818.31..43590.63 rows=25000 width=50)<br>
   Recheck Cond: (((name || ' '::text) || address) = 'Женя г. Щекино ул. Зеленая 3'::text)<br>
@@ -335,7 +335,7 @@ Bitmap Heap Scan on new  (cost=818.31..43590.63 rows=25000 width=50)<br>
         Index Cond: (((name || ' '::text) || address) = 'Женя г. Щекино ул. Зеленая 3'::text)<br>
 
 3.Индекс на два поля<br>
- create index on for_otus.new(name);<br>
+ >create index on for_otus.new(name);<br>
  create index on for_otus.new(address);<br>
  explain select * from for_otus.new where name='Женя' and address='Щекино';<br>
 Bitmap Heap Scan on new  (cost=13751.91..46119.12 rows=14848 width=50)<br>
