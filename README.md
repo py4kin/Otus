@@ -360,29 +360,29 @@ order by year_game;
 
 ![Схема](sum_1.png)<br>
 
->select year_game, sum(points) from statistic
-GROUP BY GROUPING SETS(year_game)
+>select year_game, sum(points) from statistic<br>
+GROUP BY GROUPING SETS(year_game)<br>
 order by year_game;
 
 ![Схема](sum_2.png)<br>
 
 2. Написать cte показывающее тоже самое
 
->with sum_point as(
-select year_game, sum(points) from statistic
-group by year_game
-order by year_game
-)
+>with sum_point as(<br>
+select year_game, sum(points) from statistic<br>
+group by year_game<br>
+order by year_game<br>
+)<br>
 select * from sum_point;
 
 ![Схема](cte.png)<br>
 
 3.Используя функцию LAG вывести кол-во очков по всем игрокам за текущий код и за предыдущий.
 
->select player_name,year_game, points,
-lag(year_game,-1) over (partition by player_name order by year_game) as year,
-lag(points,-1) over (partition by player_name) as points
-from statistic
+>select player_name,year_game, points,<br>
+lag(year_game,-1) over (partition by player_name order by year_game) as year,<br>
+lag(points,-1) over (partition by player_name) as points<br>
+from statistic<br>
 order by player_name,year_game;
 
 ![Схема](LAG.png)<br>
