@@ -11,6 +11,8 @@
 [Домашнее задание №9 (DML: вставка, обновление, удаление, выборка данных)](#9)
 
 [Домашнее задание №11 (Индексы)](#11)
+
+[Домашнее задание №12 (DML: агрегация и сортировка, CTE, аналитические функции)](#12)
 <a id="1">
 ## Домашнее задание №1 (Проектирование БД)
 ### 1. Схема <br>		
@@ -347,3 +349,42 @@ Bitmap Heap Scan on new  (cost=13751.91..46119.12 rows=14848 width=50)<br>
               Index Cond: (name = 'Женя'::text)<br>
 
 </a>
+
+[Оглавление](#contents)
+<a id="12">
+## Домашнее задание №12 (DML: агрегация и сортировка, CTE, аналитические функции)
+1. Написать запрос суммы очков с группировкой и сортировкой по годам.
+select year_game, sum(points) from statistic
+group by year_game
+order by year_game;
+
+![Схема](написать запрос суммы очков с группировкой и сортировкой по годам_1.png)<br>
+
+select year_game, sum(points) from statistic
+GROUP BY GROUPING SETS(year_game)
+order by year_game;
+
+![Схема](написать запрос суммы очков с группировкой и сортировкой по годам_2.png)<br>
+
+2. Написать cte показывающее тоже самое
+
+with sum_point as(
+select year_game, sum(points) from statistic
+group by year_game
+order by year_game
+)
+select * from sum_point;
+
+![Схема](написать cte показывающее тоже самое.png)<br>
+
+3.Используя функцию LAG вывести кол-во очков по всем игрокам за текущий код и за предыдущий.
+
+select player_name,year_game, points,
+lag(year_game,-1) over (partition by player_name order by year_game) as year,
+lag(points,-1) over (partition by player_name) as points
+from statistic
+order by player_name,year_game;
+
+![Схема](используя функцию LAG вывести кол-во очков по всем игрокам за текущий код и за предыдущий.png)<br>
+</a>
+[Оглавление](#contents)
