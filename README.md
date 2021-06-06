@@ -354,13 +354,13 @@ Bitmap Heap Scan on new  (cost=13751.91..46119.12 rows=14848 width=50)<br>
 <a id="12">
 ## Домашнее задание №12 (DML: агрегация и сортировка, CTE, аналитические функции)
 1. Написать запрос суммы очков с группировкой и сортировкой по годам.
-select year_game, sum(points) from statistic
+>select year_game, sum(points) from statistic
 group by year_game
 order by year_game;
 
 ![Схема](sum_1.png)<br>
 
-select year_game, sum(points) from statistic
+>select year_game, sum(points) from statistic
 GROUP BY GROUPING SETS(year_game)
 order by year_game;
 
@@ -368,7 +368,7 @@ order by year_game;
 
 2. Написать cte показывающее тоже самое
 
-with sum_point as(
+>with sum_point as(
 select year_game, sum(points) from statistic
 group by year_game
 order by year_game
@@ -379,7 +379,7 @@ select * from sum_point;
 
 3.Используя функцию LAG вывести кол-во очков по всем игрокам за текущий код и за предыдущий.
 
-select player_name,year_game, points,
+>select player_name,year_game, points,
 lag(year_game,-1) over (partition by player_name order by year_game) as year,
 lag(points,-1) over (partition by player_name) as points
 from statistic
