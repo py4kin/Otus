@@ -358,13 +358,13 @@ select year_game, sum(points) from statistic
 group by year_game
 order by year_game;
 
-![Схема](написать запрос суммы очков с группировкой и сортировкой по годам_1.png)<br>
+![Схема](sum_1.png)<br>
 
 select year_game, sum(points) from statistic
 GROUP BY GROUPING SETS(year_game)
 order by year_game;
 
-![Схема](написать запрос суммы очков с группировкой и сортировкой по годам_2.png)<br>
+![Схема](sum_2.png)<br>
 
 2. Написать cte показывающее тоже самое
 
@@ -375,7 +375,7 @@ order by year_game
 )
 select * from sum_point;
 
-![Схема](написать cte показывающее тоже самое.png)<br>
+![Схема](cte.png)<br>
 
 3.Используя функцию LAG вывести кол-во очков по всем игрокам за текущий код и за предыдущий.
 
@@ -385,6 +385,6 @@ lag(points,-1) over (partition by player_name) as points
 from statistic
 order by player_name,year_game;
 
-![Схема](используя функцию LAG вывести кол-во очков по всем игрокам за текущий код и за предыдущий.png)<br>
+![Схема](LAG.png)<br>
 </a>
 [Оглавление](#contents)
