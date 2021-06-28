@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+      db:
+        image: 1504607f1ce7
+        container_name: mysql
+        restart: always
+        environment:
+             MYSQL_ROOT_PASSWORD: root
+        command:
+             --init-file //docker-entrypoint-initdb.d/init.sql
+        volumes:
+             - /mnt/sda1/mysql/data:/var/lib/mysql
+             - /mnt/sda1/mysql/etc/my.cnf:/etc/my.cnf
+             - /mnt/sda1/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+        expose:
+             - "3306"
+        ports:
+             - "3308:3306"
