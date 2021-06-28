@@ -1,0 +1,5 @@
+CREATE USER 'root'@'%' IDENTIFIED BY '123456';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+
+CREATE database otus;
+USE otus;
