@@ -205,6 +205,7 @@ CHARACTER SET utf8mb4<br>
 COLLATE 'utf8mb4_0900_ai_ci';<br>
 
 2. Заполнил данными: название ,цвет, размер:
+
 Варииант №1
 >insert into otus.equipment (name)<br>
 values ('{"name":"Айсберг","color":"white","size":"6.11 x 3.59 x 0.46 cm"}');
