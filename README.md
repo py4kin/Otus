@@ -116,7 +116,7 @@ CREATE TABLE otus.completed_work<br>
     id_works INT UNSIGNED NOT NULL,<br>
     works VARCHAR(255) NOT NULL, -- краткое описание выполненой работы<br>
     date_works TIMESTAMP NOT NULL, -- учитывает часовой пояс<br>
-    type_of_equipment CHAR(17) NOT NULL, -- либо стиральная холодильник, либо стиральная машина, возможно это поле вообще стоит убрать т.к. есть таблица vocabulary_1<br>
+    type_of_equipment CHAR(17) NOT NULL, -- либо холодильник, либо стиральная машина, возможно это поле вообще стоит убрать т.к. есть таблица vocabulary_1<br>
     price_part DECIMAL  NOT NULL,<br>
     price_works DECIMAL   NOT NULL,<br>
     total_price DECIMAL  NOT NULL,<br>
@@ -133,7 +133,7 @@ CREATE TABLE otus.contracted_works<br>
     id_clients INT UNSIGNED NOT NULL, -- UNSIGNED чтобы не попало отрицательное значение<br>
     insertdate TIMESTAMP NOT NULL,<br>
     breaking VARCHAR(255) NOT NULL, -- краткое описание поломки со слов заказчика<br>
-    type_of_equipment CHAR(17) NOT NULL, -- либо стиральная холодильник, либо стиральная машина, возможно это поле вообще стоит убрать т.к. есть таблица vocabulary_1<br>
+    type_of_equipment CHAR(17) NOT NULL, -- либо холодильник, либо стиральная машина, возможно это поле вообще стоит убрать т.к. есть таблица vocabulary_1<br>
     departure TIMESTAMP NOT NULL,<br>
 	PRIMARY KEY (id)<br>
 )<br>
@@ -145,7 +145,7 @@ COLLATE 'utf8mb4_0900_ai_ci';<br>
 CREATE TABLE otus.parts<br>
 (<br>
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,<br>
-    type_of_equipment CHAR(17) NOT NULL, -- либо стиральная холодильник, либо стиральная машина, возможно это поле вообще стоит убрать т.к. есть таблица vocabulary_1<br>
+    type_of_equipment CHAR(17) NOT NULL, -- либо холодильник, либо стиральная машина, возможно это поле вообще стоит убрать т.к. есть таблица vocabulary_1<br>
     id_vendor INT UNSIGNED NOT NULL, -- поставщик<br>
     manufacturer VARCHAR(10) NOT NULL, -- фирма/производитель<br>
     name VARCHAR(20) NOT NULL, -- название запчасти<br>
@@ -187,9 +187,9 @@ COLLATE 'utf8mb4_0900_ai_ci';<br>
 2. Время сделал в TIMESTAMP.
 3. Для денежных сумм сделал DECIMAL.
 4. Номера телефонов сделал VARCHAR.
-5. Практически во всех таблицах есть строка type_of_equipment тип даннх сделал CHAR(17), т.к. тут должны хранится только два значения (Холодильник или стиральная машина).<br>
-Может эту строчку вообще убрать и связать с таблицей vocabulary_1, т.к. эта табилца содержит эти же самые значения?
-6. Везде где исползую Int и не хочу иметь отрицательные значения, целессообразно использовать UNSIGNED?
+5. ___Практически во всех таблицах есть строка type_of_equipment тип даннх сделал CHAR(17), т.к. тут должны хранится только два значения (Холодильник или стиральная машина).<br>
+Может эту строчку вообще убрать и связать с таблицей vocabulary_1, т.к. эта табилца содержит эти же самые значения?___
+6. ___Везде где исползую Int и не хочу иметь отрицательные значения, целессообразно использовать UNSIGNED?___
 
 JSON:<br>
 1.Создал новую таблицу в которой содержится описание конечного оборудования (Холодильников).
