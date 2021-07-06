@@ -4,6 +4,8 @@
 
 [Домашнее задание №2 (Типы данных) ](#2)
 
+[Домашнее задание №3 (SQL выборка) ](#3)
+
 <a id="1">
 
 ## Домашнее задание №1 (Создаем базу данных в докере).
@@ -222,6 +224,45 @@ JSON_ARRAY ("LG","sumsung","Sony"),<br>
 Выборка:
 
 ![Схема](json.png)
+</a>
+
+[Оглавление](#contents)
+
+<a id="3">
+
+## Домашнее задание №3 (SQL выборка).
+
+1. Запрос с inner join. Смотрим какому(-им) клиенту (ам) произвели работу с холодильниками.
+
+>select * from otus.clients INNER JOIN otus.completed_work on clients.id=completed_work.id_clients where works like '%стир%';
+
+![Схема](inner_join.png)
+
+2. Запрос с left join. Смотрим все работы по всем клиентам.
+>select * from otus.clients left join otus.completed_work on clients.ID=completed_work.id_clients;
+
+![Схема](left_join.png)
+
+3. Запросы с WHERE:
+
+	3.1 Смотрим клиентов из города Тула.
+
+	> Select * from otus.clients where address='Tula';
+	
+	[Схема](where_1.png)
+	
+	3.2 Смотрим выполненые работы по холодильникам.
+	
+	>select * from otus.completed_work where works like '%хол%';
+	
+	![Схема](where_2.png)
+	
+	3.3 Смотри какому клиенту работа выполнена <1500 у.е.
+	
+	>select Name from otus.clients where id in (select id from otus.completed_work where total_price <1500);
+	
+	![Схема](where_3.png)	
+
 </a>
 
 [Оглавление](#contents)
