@@ -232,7 +232,7 @@ JSON_ARRAY ("LG","sumsung","Sony"),<br>
 
 ## Домашнее задание №3 (SQL выборка).
 
-1. Запрос с inner join. Смотрим какому(-им) клиенту (ам) произвели работу с холодильниками.
+1. Запрос с inner join. Смотрим какому(-им) клиенту (ам) произвели работу со стиралками.
 
 >select * from otus.clients INNER JOIN otus.completed_work on clients.id=completed_work.id_clients where works like '%стир%';
 
