@@ -6,6 +6,8 @@
 
 [Домашнее задание №3 (SQL выборка) ](#3)
 
+[Домашнее задание №4 (Транзакции) ](#4)
+
 <a id="1">
 
 ## Домашнее задание №1 (Создаем базу данных в докере).
@@ -232,7 +234,7 @@ JSON_ARRAY ("LG","sumsung","Sony"),<br>
 
 ## Домашнее задание №3 (SQL выборка).
 
-1. Запрос с inner join. Смотрим какому(-им) клиенту (ам) произвели работу со стиралками.
+1. Запрос с inner join. Смотрим какому(-им) клиенту (ам) произвели работу с холодильниками.
 
 >select * from otus.clients INNER JOIN otus.completed_work on clients.id=completed_work.id_clients where works like '%стир%';
 
@@ -263,6 +265,50 @@ JSON_ARRAY ("LG","sumsung","Sony"),<br>
 	
 	![Схема](where_3.png)	
 
+</a>
+
+[Оглавление](#contents)
+
+<a id="4">
+
+## Домашнее задание №4 (Транзакции)
+
+1. Описать пример транзакции из своего проекта с изменением данных в нескольких таблицах. Реализовать в виде хранимой процедуры.
+
+	Создал процедуру с транзакцией с записью в две таблицы: в таблицу clients добавляется запись о новом клиенте
+в таблицу contracted_works добавлется информция "поломки" для нового клиента.
+
+>DELIMITER $$<br>
+USE otus$$<br>
+CREATE PROCEDURE pInsert_commmit()<br>
+BEGIN<br>
+start transaction;<br>
+INSERT INTO otus.clients (name, phone_number,address) values('Андрей', '+7-927-854-96-85', 'Moscow');<br>
+INSERT INTO otus.contracted_works (id_clients, insertdate,breaking,type_of_equipment,departure) values(6, now(), 'Течет холодильник', 'LG',now()+1000);<br>
+commit;<br>
+END$$<br>
+DELIMITER ;<br>
+
+2. Загрузить данные из приложенных в материалах csv. Реализовать следующими путями:
+
+	2.1. LOAD DATA. Загружаю данные из файла jewelry.csv. Данный файл загружен на комп. Запись в БД осуществляется с компа.
+Создал таблицу create table jewelry ...; Название столбцов "вбивал руками" и мне это не понравилось. Прочитал что можно использовать phpAdmin чтобы таблица создавалась автоматом при импорте.
+
+>LOAD DATA LOCAL INFILE<br>
+'D:/jewelry.csv' INTO TABLE `jewelry`<br>
+CHARACTER SET 'utf8mb4'<br>
+FIELDS TERMINATED BY ','<br>
+ENCLOSED BY '"'<br>
+IGNORE 1 ROWS;
+
+![Схема](load_data.png)
+
+	2.2 mysqlimport
+	Загружаю данные из файла SnowDevil.csv
+
+>mysqlimport --local --default-character-set=utf8mb4 --fields-terminated-by=',' --fields-enclosed-by='"' --ignore-lines=1 otus SnowDevil.csv
+
+![Схема](load_data2.png)
 </a>
 
 [Оглавление](#contents)
