@@ -303,7 +303,7 @@ IGNORE 1 ROWS;
 
 ![Схема](load_data.png)
 
-	2.2 mysqlimport
+2.2 mysqlimport
 	Загружаю данные из файла SnowDevil.csv
 
 >mysqlimport --local --default-character-set=utf8mb4 --fields-terminated-by=',' --fields-enclosed-by='"' --ignore-lines=1 otus SnowDevil.csv
